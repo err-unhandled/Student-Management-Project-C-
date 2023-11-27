@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB" Class="DBClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DB.mdf;Integrated Security=True" SettingsObjectName="Student_Management_development_Club_System.Properties.Settings" SettingsPropertyName="DBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.StudentCourses" Member="StudentCourses">
+    <Type Name="StudentCourse">
+      <Column Name="SC_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="S_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_startDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="C_endDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CS_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Course_StudentCourse" Member="Course" ThisKey="C_id" OtherKey="C_Id" Type="Course" IsForeignKey="true" />
+      <Association Name="CoursesSession_StudentCourse" Member="CoursesSession" ThisKey="CS_id" OtherKey="CS_Id" Type="CoursesSession" IsForeignKey="true" />
+      <Association Name="Student_StudentCourse" Member="Student" ThisKey="S_id" OtherKey="S_Id" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Courses" Member="Courses">
+    <Type Name="Course">
+      <Column Name="C_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="C_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="C_hours" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_description" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Association Name="Course_StudentCourse" Member="StudentCourses" ThisKey="C_Id" OtherKey="C_id" Type="StudentCourse" />
+      <Association Name="Course_CoursesSession" Member="CoursesSessions" ThisKey="C_Id" OtherKey="C_id" Type="CoursesSession" />
+      <Association Name="Course_StudentMark" Member="StudentMarks" ThisKey="C_Id" OtherKey="C_id" Type="StudentMark" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CoursesSessions" Member="CoursesSessions">
+    <Type Name="CoursesSession">
+      <Column Name="CS_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="C_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_startDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="C_endDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="CoursesSession_StudentCourse" Member="StudentCourses" ThisKey="CS_Id" OtherKey="CS_id" Type="StudentCourse" />
+      <Association Name="Course_CoursesSession" Member="Course" ThisKey="C_id" OtherKey="C_Id" Type="Course" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Student">
+      <Column Name="S_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="S_firstName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="S_lastName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="S_gender" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="S_birthDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="S_phone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="S_parentPhone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="S_address" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Association Name="Student_StudentCourse" Member="StudentCourses" ThisKey="S_Id" OtherKey="S_id" Type="StudentCourse" />
+      <Association Name="Student_StudentMark" Member="StudentMarks" ThisKey="S_Id" OtherKey="S_id" Type="StudentMark" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employees" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="E_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="E_firstName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="E_lastName" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="E_dateBirth" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="E_gender" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="E_phone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="E_userName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="E_password" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="E_address" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="E_role" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentMarks" Member="StudentMarks">
+    <Type Name="StudentMark">
+      <Column Name="SM_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="S_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="C_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="S_mark" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SM_description" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Association Name="Course_StudentMark" Member="Course" ThisKey="C_id" OtherKey="C_Id" Type="Course" IsForeignKey="true" />
+      <Association Name="Student_StudentMark" Member="Student" ThisKey="S_id" OtherKey="S_Id" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
